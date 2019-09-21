@@ -30,11 +30,10 @@ class Bzip2Conan(ConanFile):
         del self.settings.compiler.libcxx
 
     def source(self):
+        source_url = "https://sourceware.org/pub/bzip2/bzip2"
         folder_name = "%s-%s" % (self.name, self.version)
-        zip_name = "%s.tar.gz" % folder_name
         sha256 = "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
-        url = "https://bintray.com/conan/Sources"
-        tools.get(url="%s/download_file?file_path=%s" % (url, zip_name), sha256=sha256, filename=zip_name)
+        tools.get("{}-{}.tar.gz".format(source_url, self.version), sha256=sha256)
         os.rename(folder_name, self._source_subfolder)
 
     def _configure_cmake(self):
